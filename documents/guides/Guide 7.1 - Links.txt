@@ -1,0 +1,83 @@
+😎 ¡Chau PSeInt! ¡Hola Java! 🏁
+Vamos a utilizar un IDE diferente además de un nuevo de lenguaje. 
+Como todo cambio, puede ser un poco duro al comienzo pero a medida 
+que vayamos transitando la guía notarás cómo te vas vamos 
+familiarizando con el entorno y el desafío se vuelve cada vez más 
+interesante.
+
+Tendrás 10 días para trabajar en esta guía, así que respeta tus tiempos 
+y recuerda que todo aprendizaje lleva un proceso.
+
+
+🏁El primer desafío de esta Guía es dejar instalado el programa con 
+el que vamos a trabajar! 🤖
+
+⏳ Tomate el tiempo necesario ⏳, si hace falta, hasta una jornada 
+completa. Asegúrate de dejar NetBeans correctamente instalado 
+para poder trabajar en la guía.
+
+------------------------------------------------------------------------------
+Instalación Java
+------------------------------------------------------------------------------
+⚠️ ¡Importante! Antes de que empieces con la instalación
+Hemos creado un repositorio con soluciones a problemas frecuentes, 
+si tienes algún inconveniente durante la instalación te invitamos a revisarlo:
+
+https://github.com/EggCooperation/erroresJavaInstalacion
+
+¡Momento de instalar Java! Debes hacerlo de forma individual en tu 
+computadora pero recuerda que cuentas con tu equipo para apoyarte.
+Descarga el instalador según el sistema operativo de tu computadora:
+
+Java (JDK) + NetBeans 8.2 - macOS: https://drive.google.com/file/d/1LGcbNcku1l1OBrCMxy3GCv8JJxJrFvAR/view?usp=sharing
+Java (JDK) + NetBeans 8.2 - Windows x64 (64-bit): https://drive.google.com/file/d/1khs8QE8fHrTmmyXQ9kh0p0XG9aSI3KqL/view?usp=sharing
+Java (JDK) + NetBeans 8.2 - Windows x86 (32-bit): https://drive.google.com/file/d/1ANEKhyFTk_HsCFmtgIBZrg1WpvXtT4Is/view?usp=sharing
+Java (JDK) + NetBeans 8.2 - Linux x64 (64-bit): https://drive.google.com/file/d/1CHKM3cUrDdtQB3kd-X9RggeKCd9qASzh/view?usp=sharing
+Java (JDK) + NetBeans 8.2 - Linux x86 (32-bit): https://drive.google.com/file/d/1XGjTf1C808MeUlf664wHNOyIvfMREEVm/view?usp=sharing
+
+Sigue paso a paso los siguientes tutoriales:
+- https://youtu.be/eC2QJV51XG4
+- https://youtu.be/4sOU2JAa1Iw
+
+¿Por qué recomendamos la versión Java 8?
+	Cada versión de Java básicamente trae nuevas funcionalidades, pero suele 
+	mantener retro-compatibilidad, es decir, que lo que valía en versiones 
+	de Java anteriores, siguen funcionando en las versiones más modernas.
+
+	Java 8 es una versión muy completa que permanece estable, y que tiene mucho 
+	soporte online. Es posible que ante dudas o errores comunes, puedas encontrar 
+	respuesta de otros desarrolladores que se enfrentaron a este mismo problema y 
+	que dejaron su granito de arena en internet para poder ayudar a quienes están 
+	comenzando este camino!
+
+
+¿Cuáles son los beneficios de utilizar NetBeans?
+Veamos a continuación algunos ejemplos:
+
+	* Código abierto: NetBeans es de código abierto y por ende gratuito, de 
+	modo que cualquiera puede descargarse esta aplicación.
+	* Multiplataforma: Se puede emplear en distintos dispositivos, así como 
+	ejecutarse en diferentes sistemas operativos (Mac OS, Windows, Linux y Solaris).
+	* Manejo automático de la memoria: Para aquellos programas con C o C++, 
+	la administración de la memoria se puede realizar de forma automática.
+	* Multilenguaje: NetBeans permite desarrollar aplicaciones multilenguaje. 
+	Es decir, no solo opera con Java; sino que NetBeans puede utilizar otros 
+	lenguajes como PHP, C o Ruby, entre otros.
+
+⚡Si ya has logrado la instalación, ¡ofrece tu ayuda al equipo!
+
+🚨Si todo el equipo ya intentó resolverlo y aún necesita ayuda, pulsa el botón de ayuda. 
+¡Llegará un Mentor/a Experto/a al equipo!
+
+------------------------------------------------------------------------------
+Videos
+------------------------------------------------------------------------------
+https://www.youtube.com/playlist?list=PLgwlfcqa5h3ydooCN8AlkNK45oIKR7TXC
+
+------------------------------------------------------------------------------
+Ejemplos Guía
+------------------------------------------------------------------------------
+https://github.com/EggCooperation/Java-Intro
+
+
+
