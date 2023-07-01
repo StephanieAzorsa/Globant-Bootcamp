@@ -1,0 +1,4 @@
+My name is John Smith.
+I am 27 years old.
+My hobbies are reading, painting, and watching movies.
+What is your name?
