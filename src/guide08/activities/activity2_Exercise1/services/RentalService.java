@@ -11,8 +11,14 @@ import java.util.Scanner;
 
 public class RentalService {
     Scanner scanner = new Scanner(System.in);
-    private static final List<Rental> rentals = new ArrayList<>();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final List<Rental> rentals = new ArrayList<>();
+    private final ValidateDates validateDate = new ValidateDates();
+    private final FilmService filmService = new FilmService();
+    private final  FilmSearchService fss = new FilmSearchService();
+    private final  RentalSearchService rss = new RentalSearchService();
+    private final  RentalCalculationService rcs = new RentalCalculationService();
+
 
     /**
      * Creates a rental for a film.
@@ -20,11 +26,22 @@ public class RentalService {
      * It creates a new Rental object with the entered data and adds it to the rental list.
      */
     public void createRental() {
-        System.out.println("\n RENTAL DATA ENTRY");
+        System.out.println("\nRENTAL DATA ENTRY");
         System.out.print("Enter the title of the film: ");
-        String filmName = scanner.nextLine();
+        String filmTitle = scanner.nextLine();
 
-        Film film = findFilmByTitle(filmName);
+        Film film;
+
+        if (fss.isUniqueFilmTitle(filmTitle)) {
+            film = fss.findFilmByTitle(filmTitle);
+        } else {
+            filmService.listFilmsAvailableAndSameTitle(filmTitle);
+            System.out.print("Enter the index of the film: ");
+            int index = scanner.nextInt();
+            scanner.nextLine();
+            film = fss.findFilmByTitleAndIndex(filmTitle, index);
+        }
+
         if (film == null) {
             System.out.println("Film not found!");
             return;
@@ -35,87 +52,15 @@ public class RentalService {
         scanner.nextLine();
 
         System.out.print("Enter start date (dd/mm/yyyy): ");
-        LocalDate startDate = validStarDate();
+        LocalDate startDate = validateDate.validStarDate();
 
         System.out.print("Enter end date (dd/mm/yyyy): ");
-        LocalDate endDate = validEndDate(startDate);
+        LocalDate endDate = validateDate.validEndDate(startDate);
         System.out.println("Day's rented: " + daysRented(startDate, endDate));
         Rental rental = new Rental(film, startDate, endDate, price);
 
         film.setAvailable(false);
         rentals.add(rental);
-    }
-
-    /**
-     * Searches for a rental by the title of the film in the list of rentals.
-     *
-     * @param movieName The title of the movie to be searched.
-     * @return The first rental found that matches the specified title.
-     * If no match is found, it returns null.
-     */
-    //TODO: Implement when there are more than one movie with the same name in the Rentals list
-    private Rental findRentalByFilmTitle(String movieName) {
-        return rentals.stream()
-                .filter(rental -> rental.getFilm().getTitle().equals(movieName))
-                .findFirst()
-                .orElse(null);
-    }
-
-
-    /**
-     * Searches for a film by its title in the list of films.
-     *
-     * @param movieName The title of the movie to be searched.
-     * @return The first film found that matches the specified title and isAvailable is true.
-     * If no match is found, it returns null.
-     */
-    //TODO: Implement when there are more than one movie with the same name in the Films list
-    private Film findFilmByTitle(String movieName) {
-        return FilmService.getFilm()
-                .stream()
-                .filter(film -> film.getTitle().equals(movieName))
-                .filter(Film::isAvailable)
-                .findFirst()
-                .orElse(null);
-    }
-
-    /**
-     * Validates that the start of the date is later than or equal to the current date
-     *
-     * @return A LocalDate object representing the valid start date.
-     */
-    private LocalDate validStarDate() {
-        while (true) {
-            String dateStr = scanner.nextLine();
-            LocalDate date = LocalDate.parse(dateStr, formatter);
-            if (date.isBefore(LocalDate.now())) {
-                System.out.println("Start date must be greater than or equal to the current date ("
-                        + LocalDate.now().format(formatter) + ")");
-            } else {
-                return date;
-            }
-            System.out.print("Enter a star valid date: ");
-        }
-    }
-
-    /**
-     * Validates that the end date is later than or equal to the start date.
-     *
-     * @param startDate The start date of the rental.
-     * @return A LocalDate object representing the valid end date.
-     */
-    private LocalDate validEndDate(LocalDate startDate) {
-        while (true) {
-            String dateStr = scanner.nextLine();
-            LocalDate date = LocalDate.parse(dateStr, formatter);
-            if (date.isBefore(startDate)) {
-                System.out.println("End date must be greater than or equal to the start date ("
-                        + startDate.format(formatter) + ")");
-            } else {
-                return date;
-            }
-            System.out.print("Enter a end valid date: ");
-        }
     }
 
     /**
@@ -125,8 +70,12 @@ public class RentalService {
      * @param endDate   The end date of the rental.
      * @return The number of days between the start date and the end date.
      */
-    private int daysRented(LocalDate startDate, LocalDate endDate) {
+    int daysRented(LocalDate startDate, LocalDate endDate) {
         return (int) startDate.datesUntil(endDate.plusDays(1)).count();
+    }
+
+    public static List<Rental> getRental() {
+        return rentals;
     }
 
     /**
@@ -139,8 +88,15 @@ public class RentalService {
             return;
         }
 
-        for (Rental rental : rentals)
-            System.out.println(rental.toString());
+        for (int i = 0; i < rentals.size(); i++) {
+            Rental rental = rentals.get(i);
+            System.out.printf("DATA FILM: [Title=%-8s Genre=%-8s Year=%-10s Duration=%-3s Available=%-5s " +
+                            "] DATA RENT: [Start date=%-10s End date=%-10s price=%.1f Interest=%.1f " +
+                            "] Index:%d%n",
+                    rental.getFilm().getTitle(), rental.getFilm().getGenre(), rental.getFilm().getYear(),
+                    rental.getFilm().getDuration(), rental.getFilm().isAvailable(),
+                    rental.getStartDate(), rental.getEndDate(), rental.getPrice(), rental.getInterest(), i);
+        }
     }
 
     /**
@@ -156,8 +112,8 @@ public class RentalService {
         }
 
         System.out.print("Enter the start date (dd/mm/yyyy): ");
-        LocalDate startDate = LocalDate.parse(scanner.nextLine());
-
+        String dateStr = scanner.nextLine();
+        LocalDate startDate = LocalDate.parse(dateStr, formatter);
         for (Rental rental : rentals) {
             if (rental.getStartDate().equals(startDate)) {
                 System.out.println(rental);
@@ -180,74 +136,22 @@ public class RentalService {
         }
 
         System.out.print("Enter the name of the film: ");
-        String movieName = scanner.nextLine();
+        String filmTitle = scanner.nextLine();
 
-        Rental rental = findRentalByFilmTitle(movieName);
+        Rental rental = rss.findFilmForRental(filmTitle);
 
         if (rental == null) {
-            System.out.println("No rental found for the film " + movieName);
+            System.out.println("No rental found for the film: " + filmTitle);
             return;
         }
 
         System.out.print("Enter the return date (dd/mm/yyyy): ");
-        LocalDate returnDate = validReturnDate(rental.getStartDate());
+        LocalDate returnDate = validateDate.validReturnDate(rental.getStartDate());
         rental.setReturnDate(returnDate);
 
-        if (rental.getEndDate().equals(returnDate)) {
-            System.out.println("Price to pay: " + calculatePricePerDay(movieName));
-        }
-
-        if (rental.getEndDate().isAfter(returnDate)) {
-            System.out.println("Price to pay: " + calculatePricePerAdditionalDay(movieName));
-        }
+        rcs.calculatePriceToPay(rental, returnDate, filmTitle);
 
         rental.getFilm().setAvailable(true);
         rentals.remove(rental);
     }
-
-    /**
-     * Calculates the price to pay for a rental based on the number of days rented.
-     *
-     * @param movieName The name of the movie to be rented.
-     * @return The price to pay for the rental.
-     */
-    public double calculatePricePerDay(String movieName) {
-        Rental rental = findRentalByFilmTitle(movieName);
-        int daysRented = daysRented(rental.getStartDate(), rental.getEndDate());
-        return rental.getPrice() * daysRented;
-    }
-
-    /**
-     * Calculates the price to pay for a rental based on the number of days rented and the interest (10% per additional day).
-     *
-     * @param movieName The name of the movie to be rented.
-     * @return The price to pay for the rental.
-     */
-    public double calculatePricePerAdditionalDay(String movieName) {
-        Rental rental = findRentalByFilmTitle(movieName);
-        int additionalDays = daysRented(rental.getEndDate(), rental.getReturnDate());
-        double pricePerDay = rental.getPrice() + (rental.getPrice() * rental.getInterest());
-        return calculatePricePerDay(movieName) + (additionalDays * pricePerDay);
-    }
-
-    /**
-     * Validates that the return date is later than or equal to the start date.
-     *
-     * @param startDate The start date of the rental.
-     * @return A LocalDate object representing the valid return date.
-     */
-    private LocalDate validReturnDate(LocalDate startDate) {
-        while (true) {
-            String dateStr = scanner.nextLine();
-            LocalDate date = LocalDate.parse(dateStr, formatter);
-            if (date.isBefore(startDate)) {
-                System.out.println("Return date must be greater than or equal to the start date ("
-                        + startDate.format(formatter) + ")");
-            } else {
-                return date;
-            }
-            System.out.print("Enter a return valid date: ");
-        }
-    }
-
 }

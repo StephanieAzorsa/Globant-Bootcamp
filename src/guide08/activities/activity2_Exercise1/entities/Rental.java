@@ -11,5 +11,5 @@ public class Rental {
     private final LocalDate endDate;
     private final double price;
     private LocalDate returnDate;
-    private double interest = 0.10;
+    private final double interest = 0.10;
 }

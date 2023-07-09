@@ -15,7 +15,7 @@ public class Main {
         int option;
         do {
             menu();
-            System.out.print("Choose an option: ");
+            System.out.print("\nChoose an option: ");
             option = scanner.nextInt();
             switch (option) {
                 case 1 -> ps.createFilm();
