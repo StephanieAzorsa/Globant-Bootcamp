@@ -2,32 +2,38 @@ package guide08.activities.activity2_Exercise1.services;
 
 import guide08.activities.activity2_Exercise1.entities.Film;
 
-public class FilmSearchService {
+import java.util.Scanner;
 
-    /**
-     * Checks if the film name is unique among the films in the list.
-     *
-     * @param filmTitle The film name to check for uniqueness.
-     * @return True if the film name is unique among the films, false otherwise.
-     */
+public class FilmSearchService {
+    public Film findFilmForRental(String filmTitle) {
+        FilmService filmService = new FilmService();
+        Scanner scanner = new Scanner(System.in);
+
+        Film film = findFilmByTitle(filmTitle);
+        if (film == null) return null;
+
+        if (isUniqueFilmTitle(filmTitle)) {
+            return findFilmByTitle(filmTitle);
+        }
+        else {
+            filmService.listFilmsAvailableAndSameTitle(filmTitle);
+            System.out.print("Enter the index of the film: ");
+            int index = scanner.nextInt();
+            scanner.nextLine();
+            return findFilmByTitleAndIndex(filmTitle, index);
+        }
+    }
+
     boolean isUniqueFilmTitle(String filmTitle) {
-        long count = FilmService.getFilm()
+        return FilmService.getFilms()
                 .stream()
                 .filter(film -> film.getTitle().equals(filmTitle))
                 .filter(Film::isAvailable)
-                .count();
-        return count == 1;
+                .count() == 1;
     }
 
-    /**
-     * Searches for a film by its title in the list of films.
-     *
-     * @param filmTitle The title of the movie to be searched.
-     * @return The first film found that matches the specified title and isAvailable is true.
-     * If no match is found, it returns null.
-     */
     Film findFilmByTitle(String filmTitle) {
-        return FilmService.getFilm()
+        return FilmService.getFilms()
                 .stream()
                 .filter(film -> film.getTitle().equals(filmTitle))
                 .filter(Film::isAvailable)
@@ -35,14 +41,8 @@ public class FilmSearchService {
                 .orElse(null);
     }
 
-    /**
-     * Finds a film by its title and index in the list of films.
-     * @param filmTitle The title of the movie to be searched.
-     * @param index The index of the movie to be searched.
-     * @return The Film object with the specified title and index, if found. Otherwise, returns null.
-     */
     Film findFilmByTitleAndIndex(String filmTitle, int index) {
-        return FilmService.getFilm()
+        return FilmService.getFilms()
                 .stream()
                 .filter(film -> film.getTitle().equals(filmTitle))
                 .filter(Film::isAvailable)

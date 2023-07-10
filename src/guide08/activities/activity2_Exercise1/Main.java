@@ -22,10 +22,10 @@ public class Main {
                 case 2 -> rs.createRental();
                 case 3 -> ps.listAllFilms();
                 case 4 -> ps.listFilmsAvailable();
-                case 5 -> rs.listRentals();
-                case 6 -> ps.searchByTitle();
-                case 7 -> ps.searchByGenre();
-                case 8 -> rs.searchRentalByStarDate();
+                case 5 -> rs.listAllRentals();
+                case 6 -> ps.searchByCriteria("title");
+                case 7 -> ps.searchByCriteria("genre");
+                case 8 -> rs.searchByCriteria("date");
                 case 9 -> rs.returnMovie();
                 case 10 -> System.out.println("Exit...");
                 default -> System.out.println("Invalid option");
