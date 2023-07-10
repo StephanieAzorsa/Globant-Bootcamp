@@ -18,7 +18,7 @@ public class FilmService {
         System.out.print("Enter title: ");
         film.setTitle(scanner.nextLine().trim());
         System.out.print("Enter the genre: ");
-        film.setGenre(scanner.nextLine());
+        film.setGenre(scanner.nextLine().trim());
         System.out.print("Enter the duration in minutes: ");
         film.setDuration(scanner.nextInt());
         scanner.nextLine();

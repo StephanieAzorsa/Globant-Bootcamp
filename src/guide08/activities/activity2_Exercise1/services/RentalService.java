@@ -28,7 +28,7 @@ public class RentalService {
         }
 
         System.out.print("Enter the title of the film: ");
-        String filmTitle = scanner.nextLine();
+        String filmTitle = scanner.nextLine().trim();
 
         Film film = fss.findFilmForRental(filmTitle);
         if (film == null) {
@@ -60,6 +60,7 @@ public class RentalService {
     }
 
     public void listAllRentals() {
+        System.out.println("\nRENTALS LIST");
         listRental(rentals);
     }
 
@@ -95,7 +96,6 @@ public class RentalService {
     }
 
     public void listRental(List<Rental> rentals) {
-        System.out.println("\nRENTALS LIST");
         if (rentals.isEmpty() || rentals.get(0).getFilm() == null) {
             System.out.println("No film rented!");
             return;
@@ -119,12 +119,11 @@ public class RentalService {
             System.out.println("No rental found!");
             return;
         }
-        listAllRentals();
 
         System.out.print("Enter the name of the film: ");
         String filmTitle = scanner.nextLine();
 
-        Rental rental = rss.findFilmForRental(filmTitle);
+        Rental rental = rss.findFilmForReturn(filmTitle);
         if (rental == null) {
             System.out.println("No rental found for the film: " + filmTitle);
             return;

@@ -15,20 +15,26 @@ public class Main {
         int option;
         do {
             menu();
-            System.out.print("\nChoose an option: ");
-            option = scanner.nextInt();
-            switch (option) {
-                case 1 -> ps.createFilm();
-                case 2 -> rs.createRental();
-                case 3 -> ps.listAllFilms();
-                case 4 -> ps.listFilmsAvailable();
-                case 5 -> rs.listAllRentals();
-                case 6 -> ps.searchByCriteria("title");
-                case 7 -> ps.searchByCriteria("genre");
-                case 8 -> rs.searchByCriteria("date");
-                case 9 -> rs.returnMovie();
-                case 10 -> System.out.println("Exit...");
-                default -> System.out.println("Invalid option");
+            try {
+                System.out.print("\nChoose an option: ");
+                option = scanner.nextInt();
+                switch (option) {
+                    case 1 -> ps.createFilm();
+                    case 2 -> rs.createRental();
+                    case 3 -> ps.listAllFilms();
+                    case 4 -> ps.listFilmsAvailable();
+                    case 5 -> rs.listAllRentals();
+                    case 6 -> ps.searchByCriteria("title");
+                    case 7 -> ps.searchByCriteria("genre");
+                    case 8 -> rs.searchByCriteria("date");
+                    case 9 -> rs.returnMovie();
+                    case 10 -> System.out.println("Exit...");
+                    default -> System.out.println("Invalid option");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid option, it must be a number");
+                scanner.nextLine();
+                option = 0;
             }
         } while (option != 10);
     }

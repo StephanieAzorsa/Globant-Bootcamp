@@ -7,19 +7,6 @@ import java.util.Scanner;
 public class RentalSearchService {
     private final Scanner scanner = new Scanner(System.in);
 
-    Rental findFilmForRental(String filmTitle) {
-        RentalService rentalService = new RentalService();
-        if (isUniqueRentalTitle(filmTitle)) {
-            return findRentalByFilmTitle(filmTitle);
-        } else {
-            rentalService.listAllRentals();
-            System.out.print("Enter the index of the film: ");
-            int index = scanner.nextInt();
-            scanner.nextLine();
-            return findRentalByFilmTitleAndIndex(filmTitle, index);
-        }
-    }
-
     Rental findFilmForReturn(String filmTitle) {
         RentalService rentalService = new RentalService();
         if (isUniqueRentalTitle(filmTitle)) {
