@@ -1,17 +1,12 @@
-package guide08.activities.activity2_Exercise1.services;
+package guide08.activities.activity2_Exercise1.util;
 
 import guide08.activities.activity2_Exercise1.entities.Rental;
+import guide08.activities.activity2_Exercise1.services.RentalSearchService;
+import guide08.activities.activity2_Exercise1.services.RentalService;
 
 import java.time.LocalDate;
 
-public class RentalCalculationService {
-
-    /**
-     * Calculates the price to pay for a rental based on the number of days rented.
-     *
-     * @param filmTitle The name of the movie to be rented.
-     * @return The price to pay for the rental.
-     */
+public class PriceCalculator {
     double calculatePricePerDay(String filmTitle) {
         RentalSearchService rss = new RentalSearchService();
         Rental rental = rss.findRentalByFilmTitle(filmTitle);
@@ -20,12 +15,6 @@ public class RentalCalculationService {
         return rental.getPrice() * daysRented;
     }
 
-    /**
-     * Calculates the price to pay for a rental based on the number of days rented and the interest (10% per additional day).
-     *
-     * @param filmTitle The name of the movie to be rented.
-     * @return The price to pay for the rental.
-     */
     double calculatePricePerAdditionalDay(String filmTitle) {
         RentalSearchService rss = new RentalSearchService();
         Rental rental = rss.findRentalByFilmTitle(filmTitle);
@@ -35,16 +24,7 @@ public class RentalCalculationService {
         return calculatePricePerDay(filmTitle) + (additionalDays * pricePerDay);
     }
 
-    /**
-     * Calculates and displays the price to pay for a rental based on the return date and film title.
-     * If the return date matches the end date of the rental, it calculates and displays the price per day.
-     * If the return date is after the end date, it calculates and displays the price per additional day.
-     *
-     * @param rental The Rental object
-     * @param returnDate The return date of the rental.
-     * @param filmTitle The title of the film being returned.
-     */
-    void calculatePriceToPay(Rental rental, LocalDate returnDate, String filmTitle) {
+    public void calculatePriceToPay(Rental rental, LocalDate returnDate, String filmTitle) {
         if (rental.getEndDate().equals(returnDate))
             System.out.println("Price to pay: " + calculatePricePerDay(filmTitle));
 
