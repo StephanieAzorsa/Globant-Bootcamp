@@ -1,0 +1,28 @@
+----------------------------------------
+JUnit
+----------------------------------------
+🎆Welcome to JUnit🎆
+During the next two meetings, we will dive into the fascinating world of JUnit,
+an essential tool in software development. During this time, we will explore
+the fundamental concepts of JUnit and learn how to write effective unit tests
+to ensure the quality and robustness of our code. Together, we will discover
+how to use @Test, @Before, @After, @BeforeClass and @AfterClass annotations to
+structure our tests and set up the right environment. We want to emphasize
+that if at any point you encounter difficulties or roadblocks along the way,
+we encourage you not to get discouraged and seek support from your team.
+Collaboration and communication are key to overcoming any obstacles and making
+the most of this learning experience. It is important to note that proficiency in
+JUnit is highly sought after in the job market. By gaining these skills, you will
+be one step closer to becoming well-rounded and versatile IT professionals.
+Unit testing is a fundamental practice in the industry, as it helps ensure software
+quality and detect potential bugs before they affect end users. Work material
+
+----------------------------------------
+Videos
+----------------------------------------
+https://rb.gy/vf15i
+
+----------------------------------------
+Guide
+----------------------------------------
+https://drive.google.com/drive/folders/12deDt_ITZ2ierPP4Q1CRKpZAm0AnpAfk?usp=sharing
